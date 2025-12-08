@@ -7,5 +7,5 @@ class ParsedLog(BaseModel):
     method : Optional[str] = None
     endpoint : Optional[str] = None
     status : Optional[int] = None
-    timstamp : datetime
+    timestamp : datetime
     raw : str # original line

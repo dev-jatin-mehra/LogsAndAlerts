@@ -71,11 +71,15 @@ const Dashboard = ({
                   {selectedAlert.description}
                 </p>
 
-                <div>
+                <div className="mt-4">
                   <span className="font-medium">Raw Log:</span>
-                  <pre className="mt-1 p-2 bg-gray-100 rounded border text-xs">
+
+                  <div
+                    className="mt-1 p-2 bg-gray-100 rounded border text-xs font-mono
+               whitespace-normal wrap-break-words overflow-hidden max-w-full"
+                  >
                     {selectedAlert.details?.raw}
-                  </pre>
+                  </div>
                 </div>
               </div>
             </div>

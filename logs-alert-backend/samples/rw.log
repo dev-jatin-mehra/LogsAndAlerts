@@ -1,0 +1,64 @@
+192.168.1.10 - - [10/Dec/2025:09:15:32 +0530] "GET /home HTTP/1.1" 200 1452 "-" "Mozilla/5.0"
+192.168.1.10 - - [10/Dec/2025:09:15:35 +0530] "GET /images/logo.png HTTP/1.1" 200 3421 "-" "Mozilla/5.0"
+192.168.1.11 - - [10/Dec/2025:09:16:01 +0530] "GET /login HTTP/1.1" 200 1543 "-" "Mozilla/5.0"
+
+2025-12-10 09:16:15 INFO User 'rahul' attempted login from 192.168.1.20
+2025-12-10 09:16:16 ERROR Failed login for user 'rahul' from 192.168.1.20
+2025-12-10 09:16:18 ERROR Failed login for user 'rahul' from 192.168.1.20
+2025-12-10 09:16:20 ERROR Failed login for user 'rahul' from 192.168.1.20
+2025-12-10 09:16:21 ERROR Failed login for user 'rahul' from 192.168.1.20
+2025-12-10 09:16:23 ERROR Failed login for user 'rahul' from 192.168.1.20
+
+192.168.1.12 - - [10/Dec/2025:09:17:05 +0530] "POST /login HTTP/1.1" 401 318 "-" "Mozilla/5.0"
+192.168.1.12 - - [10/Dec/2025:09:17:06 +0530] "POST /login HTTP/1.1" 401 318 "-" "Mozilla/5.0"
+192.168.1.12 - - [10/Dec/2025:09:17:07 +0530] "POST /login HTTP/1.1" 401 318 "-" "Mozilla/5.0"
+
+192.168.1.30 - - [10/Dec/2025:09:18:10 +0530] "GET /products?id=1 OR 1=1 HTTP/1.1" 200 1923 "-" "Mozilla/5.0"
+192.168.1.30 - - [10/Dec/2025:09:18:12 +0530] "GET /search?q=UNION SELECT password FROM users HTTP/1.1" 200 2000 "-" "Mozilla/5.0"
+
+2025-12-10 09:19:01 INFO GET /products 200 from 192.168.1.40
+2025-12-10 09:19:04 INFO GET /products?id=2 200 from 192.168.1.40
+2025-12-10 09:19:05 INFO GET /products?id=3 200 from 192.168.1.40
+2025-12-10 09:19:06 INFO GET /products?id=4 200 from 192.168.1.40
+2025-12-10 09:19:07 INFO GET /products?id=5 200 from 192.168.1.40
+
+2025-12-10 09:20:10 ERROR SQL Injection Attempt: ' OR '1'='1 -- from 192.168.1.30
+2025-12-10 09:20:15 ERROR XSS Attempt Detected: <script>alert('pwned')</script> from 192.168.1.55
+
+192.168.1.55 - - [10/Dec/2025:09:21:00 +0530] "GET /search?q=<script>steal()</script> HTTP/1.1" 200 1532 "-" "Mozilla/5.0"
+
+192.168.1.99 - - [10/Dec/2025:09:21:30 +0530] "GET /admin HTTP/1.1" 403 322 "-" "Mozilla/5.0"
+192.168.1.99 - - [10/Dec/2025:09:21:32 +0530] "GET /config HTTP/1.1" 403 322 "-" "Mozilla/5.0"
+
+2025-12-10 09:22:10 WARN 403 Forbidden access to /admin/settings from 192.168.1.100
+2025-12-10 09:22:11 WARN 403 Forbidden access to /config/server from 192.168.1.100
+
+192.168.1.200 - - [10/Dec/2025:09:22:45 +0530] "GET /../../etc/passwd HTTP/1.1" 400 123 "-" "curl/7.71"
+192.168.1.200 - - [10/Dec/2025:09:22:47 +0530] "GET /../../../boot.ini HTTP/1.1" 400 123 "-" "curl/7.71"
+
+2025-12-10 09:23:01 ERROR 500 Internal Server Error at /checkout from 192.168.1.15
+2025-12-10 09:23:02 ERROR 500 Internal Server Error at /checkout from 192.168.1.15
+2025-12-10 09:23:03 ERROR 500 Internal Server Error at /checkout from 192.168.1.15
+
+192.168.1.77 - - [10/Dec/2025:09:23:30 +0530] "GET /home HTTP/1.1" 404 231 "-" "Mozilla/5.0"
+192.168.1.77 - - [10/Dec/2025:09:23:32 +0530] "GET /hom HTTP/1.1" 404 231 "-" "Mozilla/5.0"
+192.168.1.77 - - [10/Dec/2025:09:23:34 +0530] "GET /hme HTTP/1.1" 404 231 "-" "Mozilla/5.0"
+
+2025-12-10 09:24:10 INFO GET /login 200 from 192.168.1.90
+2025-12-10 09:24:11 INFO GET /login 200 from 192.168.1.90
+2025-12-10 09:24:12 INFO GET /login 200 from 192.168.1.90
+2025-12-10 09:24:13 INFO GET /login 200 from 192.168.1.90
+2025-12-10 09:24:14 INFO GET /login 200 from 192.168.1.90
+
+2025-12-10 09:24:30 ERROR 404 Page not found /favicon.ico from 192.168.1.200
+2025-12-10 09:24:31 ERROR 404 Page not found /secret/admin.php from 192.168.1.200
+2025-12-10 09:24:32 ERROR 404 Page not found /hidden/info.php from 192.168.1.200
+
+192.168.1.200 - - [10/Dec/2025:09:25:00 +0530] "GET /phpmyadmin HTTP/1.1" 403 221 "-" "Mozilla/5.0"
+
+2025-12-10 09:25:20 ERROR Failed login for user 'neha' from 192.168.1.8
+2025-12-10 09:25:21 ERROR Failed login for user 'neha' from 192.168.1.8
+2025-12-10 09:25:22 ERROR Failed login for user 'neha' from 192.168.1.8
+2025-12-10 09:25:23 ERROR Failed login for user 'neha' from 192.168.1.8
+2025-12-10 09:25:24 ERROR Failed login for user 'neha' from 192.168.1.8
+2025-12-10 09:25:26 ERROR Failed login for user 'neha' from 192.168.1.8
