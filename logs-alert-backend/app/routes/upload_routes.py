@@ -1,15 +1,27 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from typing import List
+import os
 
 from app.services.detection_engine import run_detection
 from app.services.log_parser import parse_log_file
 
 router = APIRouter(prefix="/logs",tags=["Logs"])
+ALLOWED_EXTENSIONS = {".txt", ".log"}
 
 @router.post("/upload")
 async def upload_logs(file:UploadFile = File(...)):
     if not file.filename:
         raise HTTPException(status_code=400,detail="No File Upoaded")
+    
+     # Extract extension
+    _, ext = os.path.splitext(file.filename.lower())
+
+    # Validate extension
+    if ext not in ALLOWED_EXTENSIONS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid file type '{ext}'. Only .txt and .log files are allowed."
+        )
     
     #Read File Bytes
     content = await file.read()
