@@ -18,10 +18,6 @@ APACHE_COMBINED_REGEX = re.compile(
 )
 
 def parse_apache_timestamp(ts:str)->datetime:
-    """
-    Convert Apache timestamp string to datetime.
-    Example: '10/Dec/2025:10:15:32 +0530'
-    """
     return datetime.strptime(ts,"%d/%b/%Y:%H:%M:%S %z")
 
 #General Log Parsing
@@ -32,9 +28,6 @@ GENERAL_LOG_REGEX = re.compile(
 )
 
 def parse_general_timestamp(ts: str) -> datetime:
-    """
-    Convert '2025-12-10 10:12:45' to datetime (naive UTC).
-    """
     return datetime.strptime(ts, "%Y-%m-%d %H:%M:%S")
 
 ENDPOINT_PATTERNS = [
@@ -50,10 +43,6 @@ STATUS_PATTERN = re.compile(
 
 #Parser
 def parse_log_line(line:str)->Optional[Dict]:
-    """
-    Try to parse a single log line using Apache/Nginx combined format.
-    If it fails, return a generic ParsedLog with only raw field.
-    """
     line = line.strip()
     if not line:
         return None
@@ -61,7 +50,6 @@ def parse_log_line(line:str)->Optional[Dict]:
     match = APACHE_COMBINED_REGEX.match(line)
     if match:
         data = match.groupdict()
-
         #Method,Endpoint,Protocol
         method, endpoint, protocol = None, None, None
         request = data.get("request") or ""
@@ -150,10 +138,6 @@ def parse_log_line(line:str)->Optional[Dict]:
     ).model_dump()
 
 def parse_log_file(file_text : str) -> List[dict]:
-    """
-    Takes raw log file text and returns list of parsed log dicts.
-    Supports Apache/Nginx combined format, with generic fallback.
-    """
     parsed_logs : List[Dict] = []
 
     lines = file_text.splitlines()
