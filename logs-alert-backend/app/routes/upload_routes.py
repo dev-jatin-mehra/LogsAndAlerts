@@ -13,17 +13,12 @@ async def upload_logs(file:UploadFile = File(...)):
     if not file.filename:
         raise HTTPException(status_code=400,detail="No File Upoaded")
     
-     # Extract extension
     _, ext = os.path.splitext(file.filename.lower())
-
-    # Validate extension
     if ext not in ALLOWED_EXTENSIONS:
         raise HTTPException(
             status_code=400,
             detail=f"Invalid file type '{ext}'. Only .txt and .log files are allowed."
         )
-    
-    #Read File Bytes
     content = await file.read()
     text = content.decode(errors="ignore")
 

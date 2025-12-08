@@ -7,7 +7,7 @@ from app.models.alert_model import Alert
 
 SQLI_PATTERNS = [
     " or 1=1", " or '1'='1", " union select", " drop table",
-    "'--", "\"--", "#", " sleep(", " benchmark(", " information_schema"
+    "'--", "\"--", "# ", " sleep(", " benchmark(", " information_schema"
 ]
 
 XSS_PATTERNS = [
@@ -27,13 +27,12 @@ ERROR_STATUS_CODES = {400, 401, 403, 404, 500, 502, 503}
 
 
 def create_alert(alert_type: str, risk: str, description: str, log: Dict) -> Dict:
-    """Helper to create alert dict from log."""
     alert = Alert(
         alert_type=alert_type,
         ip=log.get("ip"),
         risk=risk,
         description=description,
-        timestamp=datetime.utcnow(),
+        timestamp=datetime.now(timezone.utc),
         details={
             "endpoint": log.get("endpoint"),
             "status": log.get("status"),
@@ -44,11 +43,6 @@ def create_alert(alert_type: str, risk: str, description: str, log: Dict) -> Dic
 
 
 def run_detection(parsed_logs: List[Dict]) -> List[Dict]:
-    """
-    Takes list of parsed log dicts and returns list of alert dicts.
-    Implements rule-based detection for brute-force, SQLi, XSS, etc.
-    """
-
     alerts: List[Dict] = []
 
     # State for threshold-based rules
@@ -62,13 +56,12 @@ def run_detection(parsed_logs: List[Dict]) -> List[Dict]:
         raw = (log.get("raw") or "").lower()
         status = log.get("status")
 
-        # Count requests per IP (basic)
+        # Count requests per IP
         requests_by_ip[ip] = requests_by_ip.get(ip, 0) + 1
         if status in ERROR_STATUS_CODES:
             error_count += 1
 
         # 1. BRUTE-FORCE DETECTION
-        # Failed Login
         if status == 401 or "failed login" in raw:
             failed_logins_by_ip[ip] = failed_logins_by_ip.get(ip, 0) + 1
 
