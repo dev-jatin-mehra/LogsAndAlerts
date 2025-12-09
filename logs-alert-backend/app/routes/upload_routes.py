@@ -24,6 +24,7 @@ async def upload_logs(file:UploadFile = File(...)):
 
     # 1. Parse Log lines -> structured logs
     parsed_logs = parse_log_file(text)
+    
 
     # 2. Run detection engine on parsed logs
     alerts = run_detection(parsed_logs)

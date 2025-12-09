@@ -23,7 +23,7 @@ const Header = ({ alerts = [] }) => {
         <div className="flex justify-between items-center py-4">
           {/* LOGO + TITLE */}
           <div className="flex items-center space-x-3">
-            <FaShieldAlt className="h-8 w-8 text-blue-600" />
+            {/* <FaShieldAlt className="h-8 w-8 text-blue-600" /> */}
             <div>
               <h1 className="text-2xl font-bold text-gray-900">
                 Logs & Alerts Helper
